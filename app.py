@@ -1,7 +1,9 @@
+import json
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
 import os.path
+from handler import handler
 
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
@@ -26,11 +28,9 @@ class EchoWebSocket(tornado.websocket.WebSocketHandler):
 def make_app():
     return tornado.web.Application([
             (r"/", MainHandler),
-            # (r"/plan", PlanHandler),
             (r"/query", QueryHandler),
-            # (r"/tts", TTSHandler),
-            # (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': "./static"}),
-            # (r"/websocket", EchoWebSocket),
+            (r"/static/(.*)", tornado.web.StaticFileHandler, {'path': "./static"}),
+            (r"/websocket", EchoWebSocket),
         ])
 
 if __name__ == "__main__":

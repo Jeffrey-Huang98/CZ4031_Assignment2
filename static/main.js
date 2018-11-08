@@ -17,9 +17,7 @@ ws.onopen = function() {
 ws.onmessage = function(e) {
 	console.log(e.data)
 	var result = formatResult(e.data);
-	speak(result);
 	result = formatWhitespace(result);
-
 	document.getElementById("result").innerHTML = result
 }
 
@@ -27,16 +25,6 @@ function handleSubmit(e) {
 	ws.send(JSON.stringify(e));
 }
 
-function speak(text) {
-	speech = window.speechSynthesis;
-
-	if (!text) {
-			text = document.getElementById("result").innerHTML
-	}
-
-	const msg = new SpeechSynthesisUtterance(text);
-	window.speechSynthesis.speak(msg);
-}
 
 function formatResult(text) {
 	Object.keys(OPERATORS).forEach(key => {
